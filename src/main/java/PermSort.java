@@ -1,6 +1,6 @@
 import java.util.Comparator;
 
-public class PermSort<T> {
+public class PermSort {
 
     public static <T> void sort(final T[] array, final Comparator<T> cmp) {
         PermSortAlgorithm(array, cmp, 0);
