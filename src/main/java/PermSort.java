@@ -7,7 +7,8 @@ public class PermSort {
         int n = 0;
         boolean isSorted = false;
         while (!isSorted) {
-            assert (n < array.length);
+            if (array.length > 0)
+                assert (n < array.length);
             isSorted = PermSortAlgorithm(array, cmp, n);
             ++n;
         }
