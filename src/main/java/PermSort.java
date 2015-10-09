@@ -3,16 +3,17 @@ import java.util.Comparator;
 public class PermSort {
 
     public static <T> void sort(final T[] array, final Comparator<T> cmp) {
-        // Check all permutations where element with index 0 IS NOT on it's origin place
-        final boolean isSorted = PermSortAlgorithm(array, cmp, 0);
-        // Check all permutations where element with index 0 IS on it's origin place
-        if (!isSorted)
-            PermSortAlgorithm(array, cmp, 1);
+        // Check all permutations where element with index n IS NOT on it's origin place
+        int n = 0;
+        boolean isSorted = false;
+        while (!isSorted) {
+            assert (n < array.length);
+            isSorted = PermSortAlgorithm(array, cmp, n);
+            ++n;
+        }
     }
 
-    /**
-     * PermSortAlgorithm looks through all permutations where element with index n is not on it's origin place
-     */
+    // PermSortAlgorithm looks through all permutations where element with index n is not on it's origin place
     private static <T> boolean PermSortAlgorithm(final T[] array, final Comparator cmp, final int n) {
         if(isSorted(array, cmp))
             return true;
