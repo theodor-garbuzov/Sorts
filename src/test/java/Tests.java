@@ -12,6 +12,7 @@ enum ArrayType {RANDOM, SORTED_INCREASE, SORTED_DECREASE}
 public class Tests {
     private static List<Sorter<Integer>> SORTS = new ArrayList<>();
     static {
+        SORTS.add(PermSort::sort);
         SORTS.add(MergeSort::sort);
     }
 
@@ -26,7 +27,7 @@ public class Tests {
             for (int i = 0; i < count; ++i)
                 array[i] = i;
         }
-        else {
+        else if (arrayType == ArrayType.SORTED_DECREASE) {
             for (int i = 0; i < count; ++i)
                 array[i] = count - i;
         }
@@ -36,8 +37,7 @@ public class Tests {
     @Test
     public void doNotCrash() {
         Integer[] array0 = new Integer[0];
-        Integer[] array1 = new Integer[1];
-        array1[0] = 123;
+        Integer[] array1 = generateArray(1, ArrayType.RANDOM);
         for (Sorter<Integer> sort : SORTS) {
             sort.sort(array0, Integer::compare);
             sort.sort(array1, Integer::compare);
@@ -46,12 +46,17 @@ public class Tests {
 
     @Test
     public void isSortedTest() {
-        final int count = 101;
+        final int count = 11;
+        // Test both sorts using short array
         for (Sorter<Integer> sort : SORTS) {
             final Integer[] arr = generateArray(count, ArrayType.RANDOM);
             sort.sort(arr, Integer::compare);
             assertTrue(isSorted(arr, Integer::compare));
         }
+        // Test only MergeSort using long array
+        final Integer[] arr = generateArray(101, ArrayType.RANDOM);
+        MergeSort.sort(arr, Integer::compare);
+        assertTrue(isSorted(arr, Integer::compare));
     }
     public <T> boolean isSorted(final T[] array, final Comparator<T> cmp) {
         final int length = array.length;

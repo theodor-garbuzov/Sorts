@@ -1,5 +1,4 @@
 import java.util.Comparator;
-import java.util.Arrays;
 import static java.lang.Integer.min;
 
 public class MergeSort {
